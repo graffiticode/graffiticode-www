@@ -1,11 +1,11 @@
 [
   {
-    "id": "L0158",
+    "id": "L0176",
     "name": "Learnosity Assessment",
-    "blurb": "Assessment items on the Learnosity platform.",
-    "examplePrompt": "Create an ordered list assessment of the top 5 GDP countries in descending order",
+    "blurb": "Learnosity-shaped assessment items for a Learnosity Item Bank or Items API.",
+    "examplePrompt": "Create a Learnosity multiple-choice question asking which of five countries has the largest GDP, with the correct answer scored 1 point",
     "itemTypes": ["assessment", "learnosity"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",
+    "showcaseTaskId": null,
     "embedScale": 0.75,
     "embedRatio": "3 / 2"
   },
