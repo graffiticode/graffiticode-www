@@ -7,7 +7,7 @@ The single-page Graffiticode marketing site.
 The page contains this headline, one paragraph explaining Graffiticode's role
 between customer agents and APIs, and a static animation-placeholder storyboard:
 Agent → Graffiticode → API. The Graffiticode boundary contains the three
-functions: Micro-agent code generation, Capability based authorization, and Visible result.
+functions: Micro-agent code generation, Capability based security, and Visible result.
 There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
 on desktop and vertically on small screens, where the page may scroll.
 
