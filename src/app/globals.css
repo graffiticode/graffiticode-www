@@ -1,7 +1,5 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
@@ -13,6 +11,14 @@
   --color-brand-clay: #d35cbb; /* magenta — accent text/links, matches button */
   --color-brand-cream: #ece0da;
 
+  /* Light marketing palette. Keep colors in tokens so every surface agrees. */
+  --color-canvas: #faf7f2;
+  --color-surface: #ffffff;
+  --color-ink: #2b2528;
+  --color-muted: #655a60;
+  --color-border: #ded5ce;
+  --color-blush: #f5e8f0;
+
   /* Warm neutral "sand" scale (terracotta-tinted) — used for all body text
      instead of cold zinc, so the type sits in the brand family. */
   --color-sand-50: #f6efeb; /* warm white — headings */
@@ -23,12 +29,14 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
-  @apply bg-zinc-950 text-sand-100 antialiased;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  @apply antialiased;
 }
 
 .hero {
@@ -44,7 +52,7 @@ body {
 
 .hero-heading {
   margin: 0;
-  color: var(--color-sand-50);
+  color: var(--color-ink);
   font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: 600;
   line-height: 1.1;
@@ -59,13 +67,12 @@ body {
 
 .hero-heading-secondary {
   margin-top: 0.16em;
-  color: var(--color-sand-300);
 }
 
 .hero-subtext {
   max-width: 760px;
   margin: 28px auto 0;
-  color: var(--color-sand-300);
+  color: var(--color-muted);
   font-size: clamp(1rem, 1.5vw, 1.125rem);
   line-height: 1.75;
   text-align: center;
@@ -75,7 +82,7 @@ body {
 .animation-preview {
   margin: 0;
   padding: clamp(20px, 3vw, 32px);
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
 }
 
@@ -100,8 +107,8 @@ body {
   right: -20px;
   width: 7px;
   height: 7px;
-  border-top: 1px solid var(--color-sand-500);
-  border-right: 1px solid var(--color-sand-500);
+  border-top: 1px solid var(--color-muted);
+  border-right: 1px solid var(--color-muted);
   content: '';
   transform: rotate(45deg);
 }
@@ -115,8 +122,9 @@ body {
   justify-content: center;
   align-items: center;
   gap: 12px;
-  border: 1px solid rgb(255 255 255 / 12%);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
+  background-color: var(--color-surface);
   text-align: center;
 }
 
@@ -125,11 +133,12 @@ body {
   padding: 20px;
   border: 1px solid var(--color-brand-maroon);
   border-radius: 12px;
+  background-color: var(--color-blush);
 }
 
 .flow-platform-label {
   margin: 0 0 18px;
-  color: var(--color-brand);
+  color: var(--color-brand-maroon);
   font-size: 1.25rem;
   font-weight: 500;
   text-align: center;
@@ -154,13 +163,13 @@ body {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  color: var(--color-sand-300);
+  color: var(--color-muted);
   font-size: 0.6875rem;
   line-height: 1.5;
 }
 
 .flow-detail strong {
-  color: var(--color-brand);
+  color: var(--color-brand-maroon);
   font-weight: 500;
 }
 

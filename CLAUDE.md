@@ -37,7 +37,9 @@ The older `artcompiler/artcompiler-graffiticode` repository is not this site's s
 
 ## Copy and design
 
-Use the dark theme, warm sand neutrals, and existing brand tokens in globals.css.
+Use the light palette in globals.css: ivory canvas (#FAF7F2), charcoal text
+(#2B2528), white cards, muted plum accents (#8A2C78), and a blush Graffiticode
+boundary (#F5E8F0). Use the shared color tokens and keep text contrast readable.
 The hero must remain readable on mobile and at browser zoom; allow vertical scroll.
 The storyboard is illustrative, not a live execution or a product guarantee.
 Technical claims describe only shipped checks. Compiler validity does not prove

@@ -11,6 +11,9 @@ functions: Micro-agent code generation, Authorized action, and Visible result.
 There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
 on desktop and vertically on small screens, where the page may scroll.
 
+The light palette uses an ivory background, charcoal text, white cards, and plum
+accents, with a soft blush fill inside the Graffiticode boundary.
+
 ## Develop and verify
 
 ```bash
