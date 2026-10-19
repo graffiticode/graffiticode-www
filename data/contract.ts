@@ -110,8 +110,8 @@ export const ANIMATION_PREVIEW: {
   api: 'API',
   functions: [
     { title: 'Micro-agent code generation', promise: 'Reliable', description: 'Compiler validation' },
-    { title: 'Authorized action', promise: 'Safe', description: 'Checks permissions before acting.' },
-    { title: 'Visible result', promise: 'Transparent', description: 'Shows the result.' },
+    { title: 'Authorized action', promise: 'Safe', description: 'Checks permissions before acting' },
+    { title: 'Visible result', promise: 'Transparent', description: 'Shows the result' },
   ],
 }
 
