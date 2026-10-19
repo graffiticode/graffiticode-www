@@ -11,8 +11,12 @@ functions: Micro-agent code generation, Authorized action, and Visible result.
 There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
 on desktop and vertically on small screens, where the page may scroll.
 
-The light palette uses an ivory background, charcoal text, white cards, and plum
-accents, with a soft blush fill inside the Graffiticode boundary.
+Dark mode is the default. Press **Shift+D** to switch between dark and light;
+there is no visible toggle. The browser remembers the selected theme. For mobile
+or comparison links, open `/?theme=light` or `/?theme=dark`. Explicit URLs override
+the saved choice, and keyboard toggles update an existing theme parameter.
+The light palette retains the ivory background, charcoal text, white cards, plum
+accents, and soft blush Graffiticode boundary.
 
 ## Develop and verify
 
@@ -32,6 +36,8 @@ CI builds and performs this check on each PR and push to main.
   free-plan facts. `data/languages.json` retains the local catalog snapshot.
 - `src/components/AnimationPreview.tsx` isolates the static storyboard so a future
   animation can replace it within the same hero. It is illustrative, not live evidence.
+- `src/lib/theme.ts` initializes the saved theme before paint;
+  `src/components/ThemeToggle.tsx` handles the hidden keyboard shortcut.
 - `scripts/generate-discovery.ts` generates `public/llms.txt` and
   `public/.well-known/mcp.json` offline on dev/build. Never hand-edit those files.
   Discovery uses MCP tools for current capability details, without retired page URLs.

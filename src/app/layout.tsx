@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
+import { ThemeToggle } from '@/components/ThemeToggle'
+import { THEME_INIT_SCRIPT } from '@/lib/theme'
 import { SITE_URL, MCP_ENDPOINT, POSITIONING } from '@data/contract'
 import './globals.css'
 
@@ -42,9 +44,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <main>{children}</main>
+        <ThemeToggle />
         {plausibleDomain ? (
           <Script
             defer

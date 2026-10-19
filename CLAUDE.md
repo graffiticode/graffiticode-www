@@ -37,9 +37,15 @@ The older `artcompiler/artcompiler-graffiticode` repository is not this site's s
 
 ## Copy and design
 
-Use the light palette in globals.css: ivory canvas (#FAF7F2), charcoal text
-(#2B2528), white cards, muted plum accents (#8A2C78), and a blush Graffiticode
-boundary (#F5E8F0). Use the shared color tokens and keep text contrast readable.
+Dark is the default. Keep both palettes in the shared tokens in globals.css.
+The hidden Shift+D shortcut toggles themes without adding visible UI. Explicit
+`?theme=light` and `?theme=dark` URLs override the saved browser preference.
+`src/lib/theme.ts` initializes before paint; `ThemeToggle.tsx` persists keyboard
+changes, ignores editing fields, and keeps explicit theme URLs synchronized.
+Storage failures must leave the toggle functional. Avoid automatic OS-theme
+selection; new visitors should see dark. The light palette retains ivory canvas
+(#FAF7F2), charcoal text (#2B2528), white cards, plum accents (#8A2C78), and blush
+(#F5E8F0). Keep text contrast readable and do not add a visible theme control.
 The hero must remain readable on mobile and at browser zoom; allow vertical scroll.
 The storyboard is illustrative, not a live execution or a product guarantee.
 Technical claims describe only shipped checks. Compiler validity does not prove
