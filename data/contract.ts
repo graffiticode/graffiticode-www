@@ -99,12 +99,16 @@ export const POSITIONING = {
 /** Illustrative storyboard copy, not a recording of a live execution. */
 export const ANIMATION_PREVIEW: {
   label: string
-  steps: { title: string; promise?: string; description?: string }[]
+  agent: string
+  platform: string
+  api: string
+  functions: { title: string; promise: string; description: string }[]
 } = {
-  label: 'Animation preview',
-  steps: [
-    { title: 'Agent request' },
-    { title: 'Graffiticode' },
+  label: 'How Graffiticode connects agents to APIs',
+  agent: 'Agent',
+  platform: 'Graffiticode',
+  api: 'API',
+  functions: [
     { title: 'Checked work', promise: 'Reliable', description: 'Checks the work.' },
     { title: 'Authorized action', promise: 'Safe', description: 'Checks permissions before acting.' },
     { title: 'Visible result', promise: 'Transparent', description: 'Shows the result.' },

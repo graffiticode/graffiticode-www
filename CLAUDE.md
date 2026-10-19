@@ -19,8 +19,9 @@ The older `artcompiler/artcompiler-graffiticode` repository is not this site's s
 - `src/app/page.tsx` renders the single hero. `src/app/layout.tsx` provides metadata,
   the main landmark, and optional Plausible pageview analytics.
 - `src/components/AnimationPreview.tsx` is a server-rendered HTML/CSS storyboard.
-  It is labeled Animation preview and depicts agent request → Graffiticode →
-  checked work → authorized action → visible result. Keep semantic reading order
+  It depicts Agent → Graffiticode → API, without a visible preview label.
+  Graffiticode encloses checked work, authorized action, and visible result.
+  Keep semantic reading order
   and static presentation until a real animation is requested.
 - `data/contract.ts` owns headline, subtext, storyboard, technical definition, and endpoint
   facts. Metadata and discovery prose use that contract. Legacy pricing data is

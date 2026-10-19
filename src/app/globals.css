@@ -79,19 +79,9 @@ body {
   border-radius: 20px;
 }
 
-.animation-caption {
-  margin-bottom: 28px;
-  color: var(--color-sand-400);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.5;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .animation-flow {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: minmax(96px, 1fr) minmax(0, 4fr) minmax(96px, 1fr);
   gap: 28px;
   margin: 0;
   padding: 0;
@@ -130,9 +120,28 @@ body {
   text-align: center;
 }
 
-.flow-node-graffiticode {
-  border-color: var(--color-brand-maroon);
+.flow-platform {
+  height: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-brand-maroon);
+  border-radius: 12px;
+}
+
+.flow-platform-label {
+  margin: 0 0 18px;
   color: var(--color-brand);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.flow-functions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .flow-title {
@@ -159,6 +168,10 @@ body {
   .animation-flow {
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
+  }
+
+  .flow-functions {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .flow-node {

@@ -5,8 +5,9 @@ The single-page Graffiticode marketing site.
 > Keep APIs safe. Make agents smarter. Trace every request.
 
 The page contains this headline, one paragraph explaining Graffiticode's role
-between customer agents and APIs, and a static **Animation preview** storyboard:
-Agent request → Graffiticode → Checked work → Authorized action → Visible result.
+between customer agents and APIs, and a static animation-placeholder storyboard:
+Agent → Graffiticode → API. The Graffiticode boundary contains the three
+functions: Checked work, Authorized action, and Visible result.
 There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
 on desktop and vertically on small screens, where the page may scroll.
 
