@@ -20,7 +20,7 @@ The older `artcompiler/artcompiler-graffiticode` repository is not this site's s
   the main landmark, and optional Plausible pageview analytics.
 - `src/components/AnimationPreview.tsx` is a server-rendered HTML/CSS storyboard.
   It depicts Agent → Graffiticode → API, without a visible preview label.
-  Graffiticode encloses checked work, authorized action, and visible result.
+  Graffiticode encloses micro-agent code generation, authorized action, and visible result.
   Keep semantic reading order
   and static presentation until a real animation is requested.
 - `data/contract.ts` owns headline, subtext, storyboard, technical definition, and endpoint
