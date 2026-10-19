@@ -1,19 +1,11 @@
 import type { MetadataRoute } from 'next'
 
-import { SITE_URL, LANGUAGES } from '@data/contract'
+import { SITE_URL } from '@data/contract'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ['', '/agents', '/languages', '/pricing'].map((path) => ({
-    url: `${SITE_URL}${path}`,
+  return [{
+    url: SITE_URL,
     changeFrequency: 'weekly' as const,
-    priority: path === '' ? 1 : 0.7,
-  }))
-
-  const languageRoutes = LANGUAGES.map((l) => ({
-    url: `${SITE_URL}/languages/${l.id}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }))
-
-  return [...staticRoutes, ...languageRoutes]
+    priority: 1,
+  }]
 }

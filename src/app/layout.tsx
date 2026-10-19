@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import { SITE_URL, MCP_ENDPOINT, POSITIONING } from '@data/contract'
 import './globals.css'
 
@@ -11,12 +9,10 @@ const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}`,
+    default: `Graffiticode — ${POSITIONING.headline}`,
     template: '%s · Graffiticode',
   },
-  // POSITIONING.definition is the canonical sentence but runs long for a SERP
-  // snippet, so the short form leads and the concrete nouns follow.
-  description: `${POSITIONING.short} Ask for a chart, a spreadsheet, a concept web, or an assessment.`,
+  description: POSITIONING.short,
   alternates: {
     canonical: '/',
     types: {
@@ -31,21 +27,24 @@ export const metadata: Metadata = {
     'ai-tool-endpoint': MCP_ENDPOINT,
   },
   openGraph: {
-    title: `Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}`,
+    title: `Graffiticode — ${POSITIONING.headline}`,
     description: POSITIONING.short,
     url: SITE_URL,
     siteName: 'Graffiticode',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: `Graffiticode — ${POSITIONING.headline}`,
+    description: POSITIONING.short,
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body>
+        <main>{children}</main>
         {plausibleDomain ? (
           <Script
             defer

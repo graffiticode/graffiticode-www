@@ -1,99 +1,71 @@
-# CLAUDE.md
+# Repository guidance
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Purpose and boundaries
 
-## What this is
+This is the canonical Graffiticode marketing site at graffiticode.org. It is a
+single page, aimed at API and product owners, with exactly one hero message:
 
-`graffiticode-www` is the canonical agent-engagement site for Graffiticode (graffiticode.org), built as a **projection of the live MCP server**. The audience is AI agents (and the developers behind them) discovering Graffiticode and making a first successful MCP call. Every public surface is generated from one contract so the site cannot contradict itself or the server. Next.js 15 (app router) · React 19 · TypeScript · Tailwind v4.
+> Keep APIs safe. Make agents smarter. Trace every request.
 
-## Commands
+The hero contains that headline and an illustrative static animation placeholder.
+Do not add navigation, a logo, supporting sections, CTAs, embeds, or a footer
+without a new user request. Do not restore the former artifact-first tool catalog.
+The older `artcompiler/artcompiler-graffiticode` repository is not this site's source.
 
-```bash
-npm run dev            # regenerate discovery files, then next dev
-npm run build          # prebuild regenerates discovery files, then next build
-npm run lint           # next lint (eslint 9 + eslint-config-next)
-npm run generate       # write public/llms.txt + public/.well-known/mcp.json from the contract (offline)
-npm run sync:languages # refresh data/languages.json from the LIVE MCP server (on-demand, networked)
-npm run check:links    # "Documented == real" gate: fetch every URL the discovery files emit, fail on 404
-npm run verify         # generate + check:links
-```
+## Architecture
 
-There is no test runner — `check:links` is the verification gate, and it needs a running server. To run it against a live build (this is exactly what CI does):
-`PORT=4319 npm run start &` then `BASE_URL=http://localhost:4319 npm run check:links`.
+- Next.js 15 App Router, React 19, TypeScript, Tailwind v4.
+- `src/app/page.tsx` renders the single hero. `src/app/layout.tsx` provides metadata,
+  the main landmark, and optional Plausible pageview analytics.
+- `src/components/AnimationPreview.tsx` is a server-rendered HTML/CSS storyboard.
+  It is labeled Animation preview and depicts agent request → Graffiticode →
+  checked work → authorized action → visible result. Keep semantic reading order
+  and static presentation until a real animation is requested.
+- `data/contract.ts` owns headline, storyboard, technical definition, and endpoint
+  facts. Metadata and discovery prose use that contract. Legacy pricing data is
+  retained but has no public page; this redesign does not change billing.
+- `data/languages.json` is a local catalog snapshot, not a live availability promise.
+- `scripts/generate-discovery.ts` generates `public/llms.txt` and
+  `public/.well-known/mcp.json`. Never hand-edit those committed outputs. Generation
+  must stay offline because it runs in prebuild. Language sync remains on demand.
+- `next.config.mjs` permanently redirects `/agents`, `/languages`, `/languages/*`,
+  and `/pricing` to `/`. The sitemap contains only `/`.
+- `src/middleware.ts` permanently redirects alternate domains to the canonical apex,
+  preserving path and query. Keep discovery endpoints and static assets reachable.
 
-CI (`.github/workflows/ci.yml`) runs `npm ci` → `npm run build` → start on 4319 → `check:links` on every push to `main` and every PR.
+## Copy and design
 
-## The single-source-of-truth architecture (the thing to understand first)
+Use the dark theme, warm sand neutrals, and existing brand tokens in globals.css.
+The hero must remain readable on mobile and at browser zoom; allow vertical scroll.
+The storyboard is illustrative, not a live execution or a product guarantee.
+Technical claims describe only shipped checks. Compiler validity does not prove
+semantic correctness; restoring design-time history does not undo external writes.
+Do not claim numeric reliability or registry coverage without published evidence.
+MCP provides access; domain languages bound capabilities; the compiler checks
+modeled constraints. Free-plan access requires no Authorization header. Never
+publish credentials in discovery or instructions.
 
-`data/contract.ts` + `data/languages.json` are the **only** place facts about the MCP endpoint, tools, free-plan terms, pricing, and the language registry live. Everything else is a projection:
-
-- **Site pages** (`src/app/page.tsx`, `agents/`, `languages/`, `languages/[id]/`, `pricing/`) import from `@data/contract` and render it.
-- **Discovery files** (`public/llms.txt`, `public/.well-known/mcp.json`) are written by `scripts/generate-discovery.ts`. These two files are **never hand-edited** — they are build artifacts committed to the repo, regenerated on every `dev`/`build` via the `prebuild`/`dev` hook. If you need to change them, change `contract.ts` and run `npm run generate`.
-
-Consequence: **if a fact is wrong, it is wrong once, in `contract.ts`.** Never edit `llms.txt`, `mcp.json`, or duplicate a constant (MCP endpoint, free-plan terms, tool list, prices) into a page or component — import it from `@data/contract`.
-
-`languages.json` carries a mix of **server-owned fields** (`name`, `itemTypes`, membership) and **curated fields** (`blurb`, `examplePrompt`, `showcaseTaskId`, `embedScale`, `embedRatio`). `sync:languages` refreshes the server-owned fields from `list_languages` while preserving curated ones; it is fail-safe (any error leaves the file untouched and exits 0) and is **not** part of the build.
-
-## Key invariants (enforced, not aspirational)
-
-1. **No credential in any instruction.** The free plan is the no-`Authorization` path. Install configs and quickstarts carry no bearer token. A Bearer is only ever a real account key (`gc_…`) or OAuth. The canonical free-plan terms live in `FREE_PLAN` in `contract.ts`.
-2. **Documented == real.** `check:links` fails on any 404 from the discovery surfaces. Don't advertise a URL the build can't resolve. (401/403/405 pass — the route exists but is auth-gated or rejects GET, e.g. the MCP JSON-RPC endpoint.)
-3. **Artifact-first.** The homepage and each `/languages/[id]` page embed a *live* Graffiticode item via `src/components/Embed.tsx`, not a screenshot. When `showcaseTaskId` is `null`, `Embed` renders an honest "coming online" placeholder.
-4. **`generate-discovery.ts` must stay offline** — it runs in `prebuild` and Docker builds must be hermetic. Anything networked belongs in an on-demand script like `sync:languages`.
-
-## Positioning (what Graffiticode *is*)
-
-`POSITIONING` in `contract.ts` is the single source for the definition sentence. It mirrors `marketing/graffiticode-reason-to-be.md` §What — Graffiticode is **a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages**, the bridge between general-purpose agents and services.
-
-It exists because that sentence had previously been hand-copied into four files (`page.tsx`, `layout.tsx` metadata, `languages/page.tsx`, `generate-discovery.ts`) and drifted out of sync with marketing. **Never restate the definition inline** — import `POSITIONING` and interpolate it. A homepage copy change that doesn't move the `<title>`, OG tags, and `llms.txt` with it is the bug this prevents.
-
-Two disciplines govern anything written here, both from `marketing/marketing-corpus-consistency-plan.md`:
-
-- **Vocabulary.** A *language* (dialect) is the formal capability boundary; a *micro-agent* is the generator+compiler pairing and what an agent calls; a *skill* advertises and routes but never implements; *MCP* is the access layer, not the execution model; a *smart tool* is user-facing packaging (fine in nav and `/languages`, wrong in architectural prose).
-- **Claim discipline.** No first-try-success percentage until we can publish cohort, task definition, window, and sample size — state the mechanism, not the number. No claim of being registered across the major agent registries until listings are submitted and evidenced; say the server is public, agent-reachable, and carries the machine-readable discovery files. Both rules are enforced by comment in `PRICING.included`, where they were previously violated.
-
-Artifacts are **not** the defining abstraction. A task may render one, deposit a record into a service, or return another validated result — so don't write copy that assumes every call produces something to look at (`from zero to a working result`, not `to a rendered artifact`).
-
-## Pricing
-
-`PRICING` in `contract.ts` drives `/pricing`. It is **single-audience**: every reader is an agent (or the developer behind one), so the whole Bronze / Silver / Gold / Platinum ladder is shown to everyone and `PRICING`'s fields read in page order — `eyebrow` / `title` / `lead`, `principles`, `plans*`, `included`, `cta`.
-
-The page used to carry an agent/partner toggle with `?audience=` in the URL, per-audience `planNames`, and `showIncluded` / `showLanguageService` visibility flags. **All of that is gone**, along with `/partners`, `PARTNERS`, `PRICING.languageService`, and the `NavLink` client component that made the Pricing nav item path-dependent. Don't reintroduce an audience dimension without reinstating the whole set — it spanned `contract.ts`, `PricingView.tsx`, and `src/lib/nav.ts`, and a partial restore breaks the others.
-
-Because there is no toggle there is no state, so `PricingView.tsx` is a **server component** — keep it that way unless something genuinely needs the client.
-
-`contract.ts` owns prose as well as facts. `PRICING.included` is a standing section with its own `heading`/`lead`/`items` — don't re-add that copy to the JSX.
-
-Two rules specific to this data:
-- The public page may only show what the contract carries. Internal economics (margins, break-even, the pricing calculator) are deliberately **not** projected here.
-- The plan facts mirror the external `marketing/artcompiler-price-sheet.md` (which still says "clients"). Keep the two in sync when either changes.
-
-## Showcase items (live embeds)
-
-`Embed` iframes `viewUrl(id)` → `https://api.graffiticode.org/form?id=<id>` (the lighter API service's `/form` route, which accepts either an item or a task id). The field in `languages.json` is `showcaseTaskId` — a **base64 task id** of the form `{"taskIds":[...]}`, not a raw item id — so the app can skip the item→task lookup.
-
-To wire one up: create a real item via the MCP server's `create_item`, then drop the task id into `showcaseTaskId` (no code change). Tune presentation with `embedScale` (zoom, e.g. `0.75`) and `embedRatio` (frame aspect ratio, e.g. `'1 / 1'`, `'2 / 3'`; defaults to `'3 / 2'`).
-
-## Conventions
-
-- Path aliases: `@/*` → `src/*`, `@data/*` → `data/*` (see `tsconfig.json`).
-- TS scripts run via `tsx` and import `contract.ts` directly with `.ts` extensions; `scripts/` is excluded from the Next.js tsconfig include.
-- **Styling**: dark-only. The brand palette (`brand*`, warm-neutral `sand-*`) is defined once in the Tailwind v4 `@theme` block in `src/app/globals.css` — use those tokens, not raw hex or cold `zinc-*` for text.
-- **Analytics**: `track()` in `src/lib/analytics.ts` wraps Plausible custom events and is a no-op unless `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set. Used only for top-of-funnel events (CTA clicks, config copies); deeper funnel instrumentation lives in the MCP server/console, not here.
-- `src/middleware.ts` 308-redirects alternate hosts (`www.graffiticode.org`, `graffiticode.com`, `www.graffiticode.com`) to the apex, on every path except `_next/` — so discovery files redirect too.
-- `SITE_URL` env var drives absolute URLs in discovery files, robots, and sitemap (defaults to `https://graffiticode.org`). It is a Docker build arg, baked in at build time.
-- Contract literals that a renderer reads fields off of are typed with `satisfies` (`satisfies PricingSection`, `satisfies PricingCta`), which preserves literal types. Consequence: an *omitted* optional field is absent from the type rather than `undefined`, so write it explicitly (`external: false`) when the JSX branches on it.
-
-## Deploy
-
-Cloud Run service `www` (separate from the main site, no DNS auto-cutover), GCP project `graffiticode-app`:
+## Commands and verification
 
 ```bash
-npm run gcp:build   # Cloud Build (cloudbuild.yaml): docker build → push → deploy to Cloud Run. This is the deploy.
-npm run gcp:deploy  # alternative: source-based `gcloud run deploy` (us-central1). Not needed after gcp:build.
-npm run gcp:logs    # read service logs
+npm run dev            # regenerate discovery, start local development
+npm run build          # regenerate discovery, build and type-check
+npm run generate       # regenerate discovery offline
+npm run sync:languages # optional networked catalog refresh
+npm run check:links    # check generated discovery URLs against BASE_URL
 ```
 
-`cloudbuild.yaml` includes the deploy step, so `gcp:build` alone ships the change.
+There is no test runner. For production verification, start with
+`PORT=4319 npm run start`, then run
+`BASE_URL=http://localhost:4319 npm run check:links`. CI does the same after build.
+Verify redirects, a one-entry sitemap, matching metadata, and desktop/mobile layouts.
+The existing `npm run lint` uses the legacy Next lint command; build includes the
+configured Next.js checks. Do not add dependencies or a test framework for copy.
 
-`next.config.mjs` sets `output: 'standalone'` — the Dockerfile copies `.next/standalone`, so removing it breaks the image, not just the build.
+## Deployment
+
+Cloud Run service `www`, project `graffiticode-app`, region `us-central1`.
+`npm run gcp:build` uses Cloud Build to build, push, **and deploy**. The alternate
+`npm run gcp:deploy` also deploys. Run either only when deployment is requested.
+Keep `output: 'standalone'`; the Dockerfile relies on it.
+`SITE_URL` controls absolute URLs; it defaults to https://graffiticode.org.

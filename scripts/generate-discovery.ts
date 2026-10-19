@@ -27,10 +27,6 @@ import {
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const pub = join(root, 'public')
 
-function languageSpecUrl(id: string) {
-  return `${SITE_URL}/languages/${id}`
-}
-
 /** Wrap interpolated contract prose to llms.txt's hand-written column width, so
  * a long POSITIONING sentence doesn't land as one ragged line beside it. */
 function wrap(text: string, width = 78) {
@@ -42,7 +38,9 @@ function wrap(text: string, width = 78) {
   }, [] as string[]).join('\n')
 }
 
-const llmsTxt = `# Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}
+const llmsTxt = `# Graffiticode
+
+${wrap(POSITIONING.short)}
 
 ## What This Is
 
@@ -80,11 +78,12 @@ ${FREE_PLAN.note}
 
 ## Languages
 
-The following language IDs are currently published. Full details for each:
+The local catalog snapshot is listed below. For current capabilities and usage
+guidance, call list_languages and get_language_info on the MCP server.
 
-${LANGUAGES.map((l) => `- ${l.id} (${l.name}): ${l.blurb}\n  ${languageSpecUrl(l.id)}`).join('\n')}
+${LANGUAGES.map((l) => `- ${l.id} (${l.name}): ${l.blurb}`).join('\n')}
 
-Call list_languages from the MCP server for the live, authoritative list.
+The marketing website is a single page; it does not host language reference pages.
 
 ## Console and Forum
 
@@ -100,7 +99,7 @@ AI model training.
 const mcpJson = {
   mcp_endpoint: MCP_ENDPOINT,
   site: SITE_URL,
-  description: `${POSITIONING.definition} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
+  description: `${POSITIONING.short} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
   tools: TOOLS.map((t) => t.name),
   free_plan: {
     credential_required: FREE_PLAN.credentialRequired,
@@ -114,7 +113,6 @@ const mcpJson = {
   languages: LANGUAGES.map((l) => ({
     id: l.id,
     name: l.name,
-    spec_url: languageSpecUrl(l.id),
   })),
 }
 

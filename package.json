@@ -2,7 +2,7 @@
   "name": "graffiticode-www",
   "version": "0.1.0",
   "private": true,
-  "description": "graffiticode.org — the canonical agent-engagement site. A projection of the live MCP server.",
+  "description": "graffiticode.org — safe APIs, reliable agent work, and transparent results.",
   "scripts": {
     "prebuild": "tsx scripts/generate-discovery.ts",
     "dev": "tsx scripts/generate-discovery.ts && next dev",

@@ -1,7 +1,7 @@
 /**
  * THE CONTRACT — the single source of truth for this site.
  *
- * Every public surface (the homepage, /agents, /languages, the generated
+ * Every public surface (the single-page homepage and the generated
  * llms.txt and .well-known/mcp.json) is a projection of this file. Nothing
  * about the MCP endpoint, tools, free-plan terms, or language registry is
  * hand-written anywhere else. If a fact is wrong, it is wrong here, once.
@@ -36,10 +36,12 @@ export interface McpTool {
 }
 
 export interface Positioning {
-  /** Short pill above the headline. */
-  eyebrow: string
-  /** The homepage H1's first clause. */
+  /** The first line of the homepage H1. */
   headline: string
+  /** The second line of the homepage's single message. */
+  continuation: string
+  /** The closing line of the homepage's single message. */
+  closing: string
   /** ONE sentence: what Graffiticode is. The canonical definition. */
   definition: string
   /** How it works, stated structurally — never numerically. */
@@ -64,7 +66,7 @@ export const GITHUB_URL = 'https://github.com/graffiticode'
  * THE POSITION — mirrors marketing/graffiticode-reason-to-be.md §What.
  *
  * Every surface that states what Graffiticode *is* reads from here: the
- * homepage hero, the layout metadata (title + OG), /languages, and the
+ * homepage hero, the layout metadata (title + OG), and the
  * generated discovery files. Before this existed the same sentence was
  * hand-copied into four files and drifted; don't reintroduce a second copy.
  *
@@ -79,15 +81,31 @@ export const GITHUB_URL = 'https://github.com/graffiticode'
  * in architectural prose.
  */
 export const POSITIONING = {
-  eyebrow: 'The bridge between agents and services',
-  headline: "Your agent shouldn't guess at a specialist's job.",
+  headline: 'Keep APIs safe.',
+  continuation: 'Make agents smarter.',
+  closing: 'Trace every request.',
   definition:
     'Graffiticode is a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages — the missing bridge between general-purpose agents and the services they need to drive.',
   mechanism:
     'Each micro-agent pairs a domain language that formally bounds what it can do with a compiler that validates the work before it comes back. Your agent delegates to a specialist instead of improvising against an API it has to guess at.',
   short:
-    'Specialized micro-agents your agent can call. One MCP endpoint, no credential required.',
+    'Keep APIs safe. Make agents smarter. Trace every request.',
 } satisfies Positioning
+
+/** Illustrative storyboard copy, not a recording of a live execution. */
+export const ANIMATION_PREVIEW: {
+  label: string
+  steps: { title: string; promise?: string; description?: string }[]
+} = {
+  label: 'Animation preview',
+  steps: [
+    { title: 'Agent request' },
+    { title: 'Graffiticode' },
+    { title: 'Checked work', promise: 'Reliable', description: 'Checks the work.' },
+    { title: 'Authorized action', promise: 'Safe', description: 'Checks permissions before acting.' },
+    { title: 'Visible result', promise: 'Transparent', description: 'Shows the result.' },
+  ],
+}
 
 /**
  * The free-plan access contract (mirrors marketing/free-plan-contract.md and

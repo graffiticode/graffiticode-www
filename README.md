@@ -1,63 +1,45 @@
 # graffiticode.org (`www`)
 
-The canonical agent-engagement site for Graffiticode — a **projection of the live MCP server**.
+The single-page Graffiticode marketing site.
 
-## Why this exists
+> Keep APIs safe. Make agents smarter. Trace every request.
 
-This is where an AI agent — or the developer behind it — lands to discover Graffiticode, connect to the
-MCP server, and make a first successful call. It leads with a working artifact, a correct no-credential
-quickstart, a tool catalog generated from the real language registry, and machine-readable discovery
-surfaces (`llms.txt`, `.well-known/mcp.json`) that stay in lockstep with what the server actually
-exposes. Everything an agent reads here is something it can act on and get back a real result.
+The page contains only this headline and a static **Animation preview** storyboard:
+Agent request → Graffiticode → Checked work → Authorized action → Visible result.
+There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
+on desktop and vertically on small screens, where the page may scroll.
 
-## Design principles (enforced, not aspirational)
-
-1. **Single source of truth** — everything derives from [`data/contract.ts`](data/contract.ts) +
-   [`data/languages.json`](data/languages.json). The homepage, `/agents`, `/languages`, `llms.txt`, and
-   `.well-known/mcp.json` are all projections of it, so they cannot disagree.
-2. **No credential in any instruction** — the free plan is the no-`Authorization` path; the install
-   configs carry no bearer token.
-3. **Documented == real** — `npm run check:links` (run in CI) fetches every URL the discovery files
-   emit and fails on any 404. Broken promises can't ship.
-4. **Artifact-first** — the homepage and each `/languages/[id]` page embed a *live* Graffiticode item
-   (see "Showcase items" below), not a screenshot.
-
-## Develop
+## Develop and verify
 
 ```bash
 npm install
-npm run dev          # regenerates discovery files, then next dev
-npm run build        # prebuild generates discovery files, then next build
+npm run dev
+npm run build
 ```
 
-## Key scripts
+To check discovery links against a production build, run `PORT=4319 npm run start`
+in one terminal and `BASE_URL=http://localhost:4319 npm run check:links` in another.
+CI builds and performs this check on each PR and push to main.
 
-| Command | What it does |
-|---|---|
-| `npm run generate` | Write `public/llms.txt` + `public/.well-known/mcp.json` from the contract (runs automatically on `prebuild`; offline). |
-| `npm run sync:languages` | Refresh `data/languages.json` from the live MCP server's `list_languages`, preserving curated fields. On-demand. |
-| `npm run check:links` | "Documented == real" gate. `BASE_URL=http://localhost:PORT npm run check:links` to verify a running build. |
-| `npm run verify` | `generate` + `check:links`. |
+## Content and routing
 
-## Showcase items (live embeds)
-
-Each language can carry a `showcaseTaskId` in `data/languages.json` — a real item created via the MCP
-server, embedded as living proof. When it's `null`, the embed shows an honest "coming online"
-placeholder. To populate: create items with `create_item`, then drop the returned **task** id (a base64
-`{"taskIds":[…]}` string, not a raw item id) into `data/languages.json` (no code change needed).
+- `data/contract.ts` owns the headline, storyboard copy, MCP endpoint, tools, and
+  free-plan facts. `data/languages.json` retains the local catalog snapshot.
+- `src/components/AnimationPreview.tsx` isolates the static storyboard so a future
+  animation can replace it within the same hero. It is illustrative, not live evidence.
+- `scripts/generate-discovery.ts` generates `public/llms.txt` and
+  `public/.well-known/mcp.json` offline on dev/build. Never hand-edit those files.
+  Discovery uses MCP tools for current capability details, without retired page URLs.
+- `/agents`, `/languages`, `/languages/*`, and `/pricing` permanently redirect to `/`.
+  The sitemap lists only the homepage. Alternate hosts still redirect to graffiticode.org.
+- `SITE_URL` controls absolute metadata and discovery URLs, defaulting to
+  `https://graffiticode.org`. Optional Plausible pageview analytics remain supported.
 
 ## Deploy
 
-Cloud Run, mirroring the existing site's setup but as a separate `www` service (no auto-cutover of the
-graffiticode.org DNS):
+The existing Cloud Run deployment targets service `www`, project `graffiticode-app`.
+`npm run gcp:build` builds **and deploys** through Cloud Build.
+`npm run gcp:deploy` is the alternative source deployment.
+Only run deployment when requested. Keep Next.js `output: 'standalone'` for Docker.
 
-```bash
-npm run gcp:build    # Cloud Build (Docker) → gcr.io/graffiticode-app/www
-npm run gcp:deploy   # deploy to Cloud Run service `www` (us-central1)
-```
-
-`SITE_URL` (build arg / env) drives absolute URLs in the discovery files, robots, and sitemap.
-
-## Stack
-
-Next.js 15 (app router) · React 19 · TypeScript · Tailwind v4. No MDX/docs-template chrome.
+Next.js 15 · React 19 · TypeScript · Tailwind v4.
