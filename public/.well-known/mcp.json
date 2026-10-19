@@ -1,7 +1,7 @@
 {
   "mcp_endpoint": "https://mcp.graffiticode.org/mcp",
   "site": "https://graffiticode.org",
-  "description": "Keep APIs safe. Make agents smarter. Trace every request. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
+  "description": "Keep APIs safe. Make agents smarter. Trace every request. Graffiticode sits between your customers’ agents and your APIs, providing specialized intelligence and capability-based security for safe, transparent use of your services. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
   "tools": [
     "list_languages",
     "get_language_info",

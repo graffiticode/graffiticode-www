@@ -4,7 +4,8 @@ The single-page Graffiticode marketing site.
 
 > Keep APIs safe. Make agents smarter. Trace every request.
 
-The page contains only this headline and a static **Animation preview** storyboard:
+The page contains this headline, one paragraph explaining Graffiticode's role
+between customer agents and APIs, and a static **Animation preview** storyboard:
 Agent request → Graffiticode → Checked work → Authorized action → Visible result.
 There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
 on desktop and vertically on small screens, where the page may scroll.
@@ -23,7 +24,7 @@ CI builds and performs this check on each PR and push to main.
 
 ## Content and routing
 
-- `data/contract.ts` owns the headline, storyboard copy, MCP endpoint, tools, and
+- `data/contract.ts` owns the headline, subtext, storyboard copy, MCP endpoint, tools, and
   free-plan facts. `data/languages.json` retains the local catalog snapshot.
 - `src/components/AnimationPreview.tsx` isolates the static storyboard so a future
   animation can replace it within the same hero. It is illustrative, not live evidence.

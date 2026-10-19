@@ -42,6 +42,8 @@ export interface Positioning {
   continuation: string
   /** The closing line of the homepage's single message. */
   closing: string
+  /** Supporting explanation beneath the headline. */
+  subtext: string
   /** ONE sentence: what Graffiticode is. The canonical definition. */
   definition: string
   /** How it works, stated structurally — never numerically. */
@@ -84,6 +86,8 @@ export const POSITIONING = {
   headline: 'Keep APIs safe.',
   continuation: 'Make agents smarter.',
   closing: 'Trace every request.',
+  subtext:
+    'Graffiticode sits between your customers’ agents and your APIs, providing specialized intelligence and capability-based security for safe, transparent use of your services.',
   definition:
     'Graffiticode is a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages — the missing bridge between general-purpose agents and the services they need to drive.',
   mechanism:

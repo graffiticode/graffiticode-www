@@ -42,6 +42,8 @@ const llmsTxt = `# Graffiticode
 
 ${wrap(POSITIONING.short)}
 
+${wrap(POSITIONING.subtext)}
+
 ## What This Is
 
 ${wrap(POSITIONING.definition)}
@@ -99,7 +101,7 @@ AI model training.
 const mcpJson = {
   mcp_endpoint: MCP_ENDPOINT,
   site: SITE_URL,
-  description: `${POSITIONING.short} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
+  description: `${POSITIONING.short} ${POSITIONING.subtext} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
   tools: TOOLS.map((t) => t.name),
   free_plan: {
     credential_required: FREE_PLAN.credentialRequired,

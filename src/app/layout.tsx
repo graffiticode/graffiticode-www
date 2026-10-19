@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: `Graffiticode — ${POSITIONING.headline}`,
     template: '%s · Graffiticode',
   },
-  description: POSITIONING.short,
+  description: POSITIONING.subtext,
   alternates: {
     canonical: '/',
     types: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Graffiticode — ${POSITIONING.headline}`,
-    description: POSITIONING.short,
+    description: POSITIONING.subtext,
     url: SITE_URL,
     siteName: 'Graffiticode',
     type: 'website',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: `Graffiticode — ${POSITIONING.headline}`,
-    description: POSITIONING.short,
+    description: POSITIONING.subtext,
   },
 }
 

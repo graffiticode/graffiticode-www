@@ -7,7 +7,8 @@ single page, aimed at API and product owners, with exactly one hero message:
 
 > Keep APIs safe. Make agents smarter. Trace every request.
 
-The hero contains that headline and an illustrative static animation placeholder.
+The hero contains that headline, one paragraph of supporting subtext, and an
+illustrative static animation placeholder.
 Do not add navigation, a logo, supporting sections, CTAs, embeds, or a footer
 without a new user request. Do not restore the former artifact-first tool catalog.
 The older `artcompiler/artcompiler-graffiticode` repository is not this site's source.
@@ -21,7 +22,7 @@ The older `artcompiler/artcompiler-graffiticode` repository is not this site's s
   It is labeled Animation preview and depicts agent request → Graffiticode →
   checked work → authorized action → visible result. Keep semantic reading order
   and static presentation until a real animation is requested.
-- `data/contract.ts` owns headline, storyboard, technical definition, and endpoint
+- `data/contract.ts` owns headline, subtext, storyboard, technical definition, and endpoint
   facts. Metadata and discovery prose use that contract. Legacy pricing data is
   retained but has no public page; this redesign does not change billing.
 - `data/languages.json` is a local catalog snapshot, not a live availability promise.

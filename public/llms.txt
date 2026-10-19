@@ -2,6 +2,10 @@
 
 Keep APIs safe. Make agents smarter. Trace every request.
 
+Graffiticode sits between your customers’ agents and your APIs, providing
+specialized intelligence and capability-based security for safe, transparent
+use of your services.
+
 ## What This Is
 
 Graffiticode is a platform of specialized micro-agents whose capabilities are
