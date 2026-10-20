@@ -109,9 +109,9 @@ export const ANIMATION_PREVIEW: {
   platform: 'Graffiticode',
   api: 'API',
   functions: [
-    { title: 'Micro-agent code generation', promise: 'Reliable', description: 'Compiler validation' },
+    { title: 'Specialized code gen', promise: 'Reliable', description: 'Syntax and semantics compiler validation' },
     { title: 'Capability based security', promise: 'Safe', description: 'Checks granular permissions before acting' },
-    { title: 'Visible result', promise: 'Transparent', description: 'Shows the result' },
+    { title: 'Visible results', promise: 'Transparent', description: 'Shows intermediate states from prompt to response' },
   ],
 }
 
