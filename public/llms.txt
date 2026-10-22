@@ -1,23 +1,30 @@
 # Graffiticode
 
-Keep APIs safe. Make agents smarter. Trace every request.
+Keep your API keys safe. Make your agents smarter. See every step.
 
-Graffiticode sits between your customers’ agents and your APIs, providing
-specialized intelligence and capability-based security for safe, transparent
-use of your services.
+Graffiticode sits between your SaaS accounts and the agents you use. It gives
+your agents specialized tools, checks permissions before they act, and shows
+you each step from request to result.
+
+## Make Something
+
+Learnosity assessments, spreadsheet calculators, and interactive charts. Start
+with a plain-English prompt.
+
+For humans: open https://console.graffiticode.org/tools to explore the tools and create in Graffiticode,
+or connect an MCP-compatible AI assistant and give it a plain-English prompt.
 
 ## What This Is
 
-Graffiticode is a platform of specialized micro-agents whose capabilities are
-formally defined by domain-specific languages — the missing bridge between
-general-purpose agents and the services they need to drive.
+Graffiticode connects the agents you use to specialized tools for your SaaS
+accounts, with permission checks and a visible record of their work.
 
-Each micro-agent pairs a domain language that formally bounds what it can do
-with a compiler that validates the work before it comes back. Your agent
-delegates to a specialist instead of improvising against an API it has to
-guess at. A task may render an artifact such as a chart or a spreadsheet,
-deposit a record into a service, or produce another validated result — the
-language defines the capability, not one output shape.
+Your agent asks Graffiticode to handle a task using a specialized tool. Each
+tool is limited to actions defined by its language, and a compiler checks the
+generated code before the result is returned to your agent. A task may render
+an artifact such as a chart or a spreadsheet, deposit a record into a service,
+or produce another validated result — the language defines the capability, not
+one output shape.
 
 Graffiticode is 100% open source under the MIT license. Source code lives at
 https://github.com/graffiticode. Community discussion and language showcase live at https://forum.graffiticode.org.
@@ -32,7 +39,36 @@ This URL is identical across every Graffiticode-ecosystem property. Link to it
 with the same phrasing ("the Graffiticode MCP server at mcp.graffiticode.org/mcp")
 in documentation, READMEs, and forum answers.
 
-MCP tools available: list_languages, get_language_info, create_item, update_item, get_item.
+MCP tools available: list_languages, get_language_info, create_item, update_item, render_item, get_spec, get_item.
+
+Transport: Streamable HTTP. Add the URL as a remote MCP server in
+your client. Choose no authentication to try it without credentials.
+For clients that use mcpServers JSON configuration:
+
+```json
+{
+  "mcpServers": {
+    "graffiticode": {
+      "url": "https://mcp.graffiticode.org/mcp"
+    }
+  }
+}
+```
+
+## First Creation
+
+1. list_languages: Find a language that fits. Use get_language_info when you need its authoring details. If the session catalog already gives you a clear match, create directly.
+2. create_item: Pass the language ID and a plain-English description of the content, layout, and interactions you want.
+3. render_item: Pass the returned item_id to wait for and display the result. If it is still generating, call render_item again. Share its view_url and, if provided, its claim_url so the user can save their work.
+4. update_item: Pass item_id and a plain-English modification, then render_item again to show the change.
+
+create_item and update_item are asynchronous. They return an item_id and may
+report status "generating"; follow with render_item to wait for and display the
+result. If rendering reports "failed", explain the failure to the user.
+
+To reuse an item's content in a new request, call get_spec(item_id) and pass
+the English description to create_item. Do not pass language-private code or
+raw item IDs across languages.
 
 ## Free-Plan Access (no credential required)
 
@@ -50,11 +86,18 @@ No credential is required to try Graffiticode. Call the MCP server with no Autho
 The local catalog snapshot is listed below. For current capabilities and usage
 guidance, call list_languages and get_language_info on the MCP server.
 
-- L0176 (Learnosity Assessment): Learnosity-shaped assessment items for a Learnosity Item Bank or Items API.
-- L0166 (Spreadsheet): Structured, embeddable spreadsheets with live formulas.
-- L0169 (Concept Web): Radial concept-web diagrams and assessments.
-- L0170 (Data Pipeline): Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.
-- L0173 (Chart): Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.
+- L0175 (Grade 5 ELA assessments): Literary and informational reading items for Grade 5 reasoning and evidence.
+- L0176 (Learnosity assessments): Create Learnosity assessments for a Learnosity Item Bank.
+- L0177 (Learnosity authoring integrations): Host-neutral recipes for embedding and configuring Learnosity authoring experiences.
+- L0178 (Learnosity data integrations): Host-neutral recipes for supported Learnosity Item Bank and assessment data jobs.
+- L0179 (Spreadsheet calculators): Create interactive calculators with spreadsheet formulas, ready to embed on your website.
+- L0180 (Quizzes & assessments): Create a question learners can answer and score in the browser.
+- L0181 (Flashcards): Make a study deck with cards to flip and review.
+- L0182 (Survey responses): Record ranked choices or ratings for an existing survey. New survey authoring is not supported.
+- L0183 (Concept maps): Show how ideas connect, or turn the map into a learning activity.
+- L0184 (Interactive charts): Turn your data into interactive charts that visitors can explore. Embed them on your website.
+- L0185 (Fetch & shape data): Fetch public JSON or CSV and filter, group, join, or summarize it.
+- L0186 (FigJam boards): Plan a brainstorm or retro, then draw it with the Graffiticode FigJam plugin.
 
 The marketing website is a single page; it does not host language reference pages.
 

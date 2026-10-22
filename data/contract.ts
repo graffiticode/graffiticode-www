@@ -61,11 +61,12 @@ export const MCP_ABOUT = 'https://mcp.graffiticode.org/about'
 export const APP_URL = 'https://app.graffiticode.org'
 export const API_URL = 'https://api.graffiticode.org'
 export const CONSOLE_URL = 'https://console.graffiticode.org'
+export const START_URL = `${CONSOLE_URL}/tools`
 export const FORUM_URL = 'https://forum.graffiticode.org'
 export const GITHUB_URL = 'https://github.com/graffiticode'
 
 /**
- * THE POSITION — mirrors marketing/graffiticode-reason-to-be.md §What.
+ * THE POSITION — consumer-facing messaging for people using agents with SaaS accounts.
  *
  * Every surface that states what Graffiticode *is* reads from here: the
  * homepage hero, the layout metadata (title + OG), and the
@@ -83,17 +84,17 @@ export const GITHUB_URL = 'https://github.com/graffiticode'
  * in architectural prose.
  */
 export const POSITIONING = {
-  headline: 'Keep APIs safe.',
-  continuation: 'Make agents smarter.',
-  closing: 'Trace every request.',
+  headline: 'Keep your API keys safe.',
+  continuation: 'Make your agents smarter.',
+  closing: 'See every step.',
   subtext:
-    'Graffiticode sits between your customers’ agents and your APIs, providing specialized intelligence and capability-based security for safe, transparent use of your services.',
+    'Graffiticode sits between your SaaS accounts and the agents you use. It gives your agents specialized tools, checks permissions before they act, and shows you each step from request to result.',
   definition:
-    'Graffiticode is a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages — the missing bridge between general-purpose agents and the services they need to drive.',
+    'Graffiticode connects the agents you use to specialized tools for your SaaS accounts, with permission checks and a visible record of their work.',
   mechanism:
-    'Each micro-agent pairs a domain language that formally bounds what it can do with a compiler that validates the work before it comes back. Your agent delegates to a specialist instead of improvising against an API it has to guess at.',
+    'Your agent asks Graffiticode to handle a task using a specialized tool. Each tool is limited to actions defined by its language, and a compiler checks the generated code before the result is returned to your agent.',
   short:
-    'Keep APIs safe. Make agents smarter. Trace every request.',
+    'Keep your API keys safe. Make your agents smarter. See every step.',
 } satisfies Positioning
 
 /** Illustrative storyboard copy, not a recording of a live execution. */
@@ -104,14 +105,14 @@ export const ANIMATION_PREVIEW: {
   api: string
   functions: { title: string; promise: string; description: string }[]
 } = {
-  label: 'How Graffiticode connects agents to APIs',
-  agent: 'Agent',
+  label: 'How Graffiticode connects your agent to your SaaS accounts',
+  agent: 'Your agent',
   platform: 'Graffiticode',
-  api: 'API',
+  api: 'Your SaaS accounts',
   functions: [
-    { title: 'Specialized code gen', promise: 'Reliable', description: 'Syntax and semantics compiler validation' },
-    { title: 'Capability based security', promise: 'Safe', description: 'Checks granular permissions before acting' },
-    { title: 'Visible results', promise: 'Transparent', description: 'Shows intermediate states from prompt to response' },
+    { title: 'Specialized tools', promise: 'Reliable', description: 'Checks the work before returning it' },
+    { title: 'Permission checks', promise: 'Safe', description: 'Checks your permissions before acting' },
+    { title: 'Visible results', promise: 'Transparent', description: 'Follow your request from start to finish' },
   ],
 }
 
@@ -127,6 +128,35 @@ export const FREE_PLAN = {
   // A Bearer credential is ONLY ever a real account API key (gc_…) or an OAuth token.
   note:
     'No credential is required to try Graffiticode. Call the MCP server with no Authorization header and your work is scoped to your MCP session. Pass a Bearer token only to use your own account (gc_…) or OAuth.',
+}
+
+/** Hero entry points: browse starting prompts, or connect an AI assistant. */
+export const GET_STARTED = {
+  invitation: 'Make something with Graffiticode',
+  summary: 'Learnosity assessments, spreadsheet calculators, and interactive charts. Start with a plain-English prompt.',
+  primary: { label: 'Start making', href: '#make' },
+  secondary: { label: 'Connect your agent', href: '#connect' },
+  examplesHeading: 'What will you make?',
+  examplesIntro: 'Try one of these prompts in ChatGPT.com, or open Graffiticode to explore the tools yourself.',
+  connectionHeading: 'Give your AI assistant new things to make.',
+  connectionIntro: 'Connect Graffiticode to the AI assistant you already use, then describe what you want to make.',
+  connectionSteps: [
+    { title: 'Add Graffiticode', body: 'In ChatGPT, add the Graffiticode plugin. In Claude, add the Graffiticode connector. Everywhere else, paste the server URL below into your assistant’s connector settings. If it asks for a transport, choose Streamable HTTP.' },
+    { title: 'Try it without an account', body: 'For the free plan, choose no authentication when your assistant asks. You don’t need an API key to start.' },
+    { title: 'Describe what you want', body: 'Choose an example above or describe your own idea. Ask your assistant for changes to refine the result.' },
+  ],
+  agentSteps: [
+    { tool: 'list_languages', instruction: 'Find a language that fits. Use get_language_info when you need its authoring details. If the session catalog already gives you a clear match, create directly.' },
+    { tool: 'create_item', instruction: 'Pass the language ID and a plain-English description of the content, layout, and interactions you want.' },
+    { tool: 'render_item', instruction: 'Pass the returned item_id to wait for and display the result. If it is still generating, call render_item again. Share its view_url and, if provided, its claim_url so the user can save their work.' },
+    { tool: 'update_item', instruction: 'Pass item_id and a plain-English modification, then render_item again to show the change.' },
+  ],
+  retention: `Trying it without an account? Your work is kept for ${FREE_PLAN.itemTtlHours} hours. Open the save link your assistant provides within ${FREE_PLAN.claimJwtTtlHours} hours and sign in to keep it.`,
+}
+
+export const MCP_CONNECTION = {
+  transport: 'Streamable HTTP',
+  config: { mcpServers: { graffiticode: { url: MCP_ENDPOINT } } },
 }
 
 /** The plan ladder, low to high. A union so an audience can't name a plan that
@@ -310,7 +340,7 @@ export const TOOLS: McpTool[] = [
     name: 'list_languages',
     summary: 'Discover available languages. Use this first to find the language that fits the task.',
     params: [
-      { name: 'category', type: 'string', required: false, description: 'Optional category filter.' },
+      { name: 'domain', type: 'string', required: false, description: 'Optional domain filter.' },
       { name: 'search', type: 'string', required: false, description: 'Optional keyword search.' },
     ],
   },
@@ -318,14 +348,14 @@ export const TOOLS: McpTool[] = [
     name: 'get_language_info',
     summary: 'Get authoring details, item types, and example prompts for one language. Call after list_languages.',
     params: [
-      { name: 'language', type: 'string', required: true, description: 'The language code, e.g. "L0166".' },
+      { name: 'language', type: 'string', required: true, description: 'The language code, e.g. "L0179".' },
     ],
   },
   {
     name: 'create_item',
     summary: 'Create an interactive item from a natural-language description.',
     params: [
-      { name: 'language', type: 'string', required: true, description: 'The language code, e.g. "L0169".' },
+      { name: 'language', type: 'string', required: true, description: 'The language code, e.g. "L0180".' },
       { name: 'description', type: 'string', required: true, description: 'Natural-language description of what to create.' },
     ],
   },
@@ -338,6 +368,16 @@ export const TOOLS: McpTool[] = [
     ],
   },
   {
+    name: 'render_item',
+    summary: 'Wait for and display a created or updated item. If still generating, call again.',
+    params: [{ name: 'item_id', type: 'string', required: true, description: 'The id returned by create_item or update_item.' }],
+  },
+  {
+    name: 'get_spec',
+    summary: 'Get a platform-neutral English description to reuse an item’s content in a new request.',
+    params: [{ name: 'item_id', type: 'string', required: true, description: 'The id of the source item.' }],
+  },
+  {
     name: 'get_item',
     summary: 'Retrieve an existing item by id.',
     params: [{ name: 'item_id', type: 'string', required: true, description: 'The id of the item to retrieve.' }],
@@ -345,6 +385,20 @@ export const TOOLS: McpTool[] = [
 ]
 
 export const LANGUAGES: Language[] = languagesData as Language[]
+
+/** A few starting ideas, rather than a second language-reference catalog. */
+export const MAKING_EXAMPLES = ['L0176', 'L0179', 'L0184'].map(
+  (id) => LANGUAGES.find((language) => language.id === id)!,
+)
+
+/** Name the tool explicitly so the assistant can route a sample to Graffiticode. */
+export function getChatGPTPromptLink(examplePrompt: string) {
+  const prompt = `Use Graffiticode for this request:\n\n${examplePrompt}`
+  return {
+    prompt,
+    href: `https://chatgpt.com/?${new URLSearchParams({ surface: 'work', prompt })}`,
+  }
+}
 
 export function getLanguage(id: string): Language | undefined {
   return LANGUAGES.find((l) => l.id.toLowerCase() === id.toLowerCase())

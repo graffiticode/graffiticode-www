@@ -22,6 +22,9 @@ import {
   LANGUAGES,
   FREE_PLAN,
   POSITIONING,
+  GET_STARTED,
+  MCP_CONNECTION,
+  START_URL,
 } from '../data/contract.ts'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -43,6 +46,13 @@ const llmsTxt = `# Graffiticode
 ${wrap(POSITIONING.short)}
 
 ${wrap(POSITIONING.subtext)}
+
+## Make Something
+
+${wrap(GET_STARTED.summary)}
+
+For humans: open ${START_URL} to explore the tools and create in Graffiticode,
+or connect an MCP-compatible AI assistant and give it a plain-English prompt.
 
 ## What This Is
 
@@ -66,6 +76,26 @@ with the same phrasing ("the Graffiticode MCP server at ${MCP_ENDPOINT.replace(/
 in documentation, READMEs, and forum answers.
 
 MCP tools available: ${TOOLS.map((t) => t.name).join(', ')}.
+
+Transport: ${MCP_CONNECTION.transport}. Add the URL as a remote MCP server in
+your client. Choose no authentication to try it without credentials.
+For clients that use mcpServers JSON configuration:
+
+\`\`\`json
+${JSON.stringify(MCP_CONNECTION.config, null, 2)}
+\`\`\`
+
+## First Creation
+
+${GET_STARTED.agentSteps.map((step, index) => `${index + 1}. ${step.tool}: ${step.instruction}`).join('\n')}
+
+create_item and update_item are asynchronous. They return an item_id and may
+report status "generating"; follow with render_item to wait for and display the
+result. If rendering reports "failed", explain the failure to the user.
+
+To reuse an item's content in a new request, call get_spec(item_id) and pass
+the English description to create_item. Do not pass language-private code or
+raw item IDs across languages.
 
 ## Free-Plan Access (no credential required)
 
@@ -100,9 +130,12 @@ AI model training.
 
 const mcpJson = {
   mcp_endpoint: MCP_ENDPOINT,
+  transport: MCP_CONNECTION.transport,
+  ...MCP_CONNECTION.config,
   site: SITE_URL,
   description: `${POSITIONING.short} ${POSITIONING.subtext} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
   tools: TOOLS.map((t) => t.name),
+  getting_started: GET_STARTED.agentSteps,
   free_plan: {
     credential_required: FREE_PLAN.credentialRequired,
     session_header: FREE_PLAN.sessionHeader,
@@ -110,6 +143,7 @@ const mcpJson = {
     claim: 'Follow the claim_url returned by create_item / update_item to save items permanently.',
   },
   console_url: CONSOLE_URL,
+  start_url: START_URL,
   forum_url: FORUM_URL,
   github_url: GITHUB_URL,
   languages: LANGUAGES.map((l) => ({

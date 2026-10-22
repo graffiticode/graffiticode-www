@@ -1,13 +1,39 @@
 {
   "mcp_endpoint": "https://mcp.graffiticode.org/mcp",
+  "transport": "Streamable HTTP",
+  "mcpServers": {
+    "graffiticode": {
+      "url": "https://mcp.graffiticode.org/mcp"
+    }
+  },
   "site": "https://graffiticode.org",
-  "description": "Keep APIs safe. Make agents smarter. Trace every request. Graffiticode sits between your customers’ agents and your APIs, providing specialized intelligence and capability-based security for safe, transparent use of your services. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
+  "description": "Keep your API keys safe. Make your agents smarter. See every step. Graffiticode sits between your SaaS accounts and the agents you use. It gives your agents specialized tools, checks permissions before they act, and shows you each step from request to result. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
   "tools": [
     "list_languages",
     "get_language_info",
     "create_item",
     "update_item",
+    "render_item",
+    "get_spec",
     "get_item"
+  ],
+  "getting_started": [
+    {
+      "tool": "list_languages",
+      "instruction": "Find a language that fits. Use get_language_info when you need its authoring details. If the session catalog already gives you a clear match, create directly."
+    },
+    {
+      "tool": "create_item",
+      "instruction": "Pass the language ID and a plain-English description of the content, layout, and interactions you want."
+    },
+    {
+      "tool": "render_item",
+      "instruction": "Pass the returned item_id to wait for and display the result. If it is still generating, call render_item again. Share its view_url and, if provided, its claim_url so the user can save their work."
+    },
+    {
+      "tool": "update_item",
+      "instruction": "Pass item_id and a plain-English modification, then render_item again to show the change."
+    }
   ],
   "free_plan": {
     "credential_required": false,
@@ -16,28 +42,57 @@
     "claim": "Follow the claim_url returned by create_item / update_item to save items permanently."
   },
   "console_url": "https://console.graffiticode.org",
+  "start_url": "https://console.graffiticode.org/tools",
   "forum_url": "https://forum.graffiticode.org",
   "github_url": "https://github.com/graffiticode",
   "languages": [
     {
+      "id": "L0175",
+      "name": "Grade 5 ELA assessments"
+    },
+    {
       "id": "L0176",
-      "name": "Learnosity Assessment"
+      "name": "Learnosity assessments"
     },
     {
-      "id": "L0166",
-      "name": "Spreadsheet"
+      "id": "L0177",
+      "name": "Learnosity authoring integrations"
     },
     {
-      "id": "L0169",
-      "name": "Concept Web"
+      "id": "L0178",
+      "name": "Learnosity data integrations"
     },
     {
-      "id": "L0170",
-      "name": "Data Pipeline"
+      "id": "L0179",
+      "name": "Spreadsheet calculators"
     },
     {
-      "id": "L0173",
-      "name": "Chart"
+      "id": "L0180",
+      "name": "Quizzes & assessments"
+    },
+    {
+      "id": "L0181",
+      "name": "Flashcards"
+    },
+    {
+      "id": "L0182",
+      "name": "Survey responses"
+    },
+    {
+      "id": "L0183",
+      "name": "Concept maps"
+    },
+    {
+      "id": "L0184",
+      "name": "Interactive charts"
+    },
+    {
+      "id": "L0185",
+      "name": "Fetch & shape data"
+    },
+    {
+      "id": "L0186",
+      "name": "FigJam boards"
     }
   ]
 }

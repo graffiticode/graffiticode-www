@@ -1,9 +1,11 @@
-import Link from 'next/link'
+'use client'
+
 import clsx from 'clsx'
+import { track } from '@/lib/analytics'
 
 const styles = {
-  primary: 'bg-brand-deep text-white hover:bg-[#dd6fc7]',
-  secondary: 'border border-white/15 text-sand-100 hover:bg-white/5',
+  primary: 'action-primary',
+  secondary: 'action-secondary',
 }
 
 export function Button({
@@ -20,20 +22,19 @@ export function Button({
   external?: boolean
 }) {
   const cls = clsx(
-    'inline-flex items-center justify-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition',
+    'action-button',
     styles[variant],
     className,
   )
-  if (external) {
-    return (
-      <a href={href} className={cls} target="_blank" rel="noreferrer">
-        {children}
-      </a>
-    )
-  }
   return (
-    <Link href={href} className={cls}>
+    <a
+      href={href}
+      className={cls}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noreferrer' : undefined}
+      onClick={() => track('cta_click', { destination: href })}
+    >
       {children}
-    </Link>
+    </a>
   )
 }

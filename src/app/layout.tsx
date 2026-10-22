@@ -3,7 +3,7 @@ import Script from 'next/script'
 
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { THEME_INIT_SCRIPT } from '@/lib/theme'
-import { SITE_URL, MCP_ENDPOINT, POSITIONING } from '@data/contract'
+import { SITE_URL, MCP_ENDPOINT, POSITIONING, GET_STARTED } from '@data/contract'
 import './globals.css'
 
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: `Graffiticode — ${POSITIONING.headline}`,
     template: '%s · Graffiticode',
   },
-  description: POSITIONING.subtext,
+  description: GET_STARTED.summary,
   alternates: {
     canonical: '/',
     types: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `Graffiticode — ${POSITIONING.headline}`,
-    description: POSITIONING.subtext,
+    description: GET_STARTED.summary,
     url: SITE_URL,
     siteName: 'Graffiticode',
     type: 'website',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: `Graffiticode — ${POSITIONING.headline}`,
-    description: POSITIONING.subtext,
+    description: GET_STARTED.summary,
   },
 }
 

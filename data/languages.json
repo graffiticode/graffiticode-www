@@ -1,52 +1,126 @@
 [
   {
+    "id": "L0175",
+    "name": "Grade 5 ELA assessments",
+    "blurb": "Literary and informational reading items for Grade 5 reasoning and evidence.",
+    "examplePrompt": "Create a Grade 5 literary reading item about a character choosing to help a friend, with an inference question and a question asking for supporting evidence.",
+    "itemTypes": [
+      "assessment"
+    ],
+    "showcaseTaskId": null
+  },
+  {
     "id": "L0176",
-    "name": "Learnosity Assessment",
-    "blurb": "Learnosity-shaped assessment items for a Learnosity Item Bank or Items API.",
-    "examplePrompt": "Create a Learnosity multiple-choice question asking which of five countries has the largest GDP, with the correct answer scored 1 point",
-    "itemTypes": ["assessment", "learnosity"],
-    "showcaseTaskId": null,
-    "embedScale": 0.75,
-    "embedRatio": "3 / 2"
+    "name": "Learnosity assessments",
+    "blurb": "Create Learnosity assessments for a Learnosity Item Bank.",
+    "examplePrompt": "Create a Learnosity ordering question: arrange these U.S. presidents by when they served, earliest first: John F. Kennedy, George Washington, Franklin D. Roosevelt, Abraham Lincoln. Correct order: Washington (1789–1797), Lincoln (1861–1865), Roosevelt (1933–1945), Kennedy (1961–1963).",
+    "itemTypes": [
+      "learnosity",
+      "assessment"
+    ],
+    "showcaseTaskId": null
   },
   {
-    "id": "L0166",
-    "name": "Spreadsheet",
-    "blurb": "Structured, embeddable spreadsheets with live formulas.",
-    "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
-    "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBNcHplczVuNUhhWkVpTFRVcVZKIl19",
-    "embedScale": 0.75,
-    "embedRatio": "3 / 2"
+    "id": "L0177",
+    "name": "Learnosity authoring integrations",
+    "blurb": "Host-neutral recipes for embedding and configuring Learnosity authoring experiences.",
+    "examplePrompt": "Plan a Learnosity item editor integration for teachers at school.example, using author ID teacher-1 and item reference fractions-1, with multiple-choice and cloze widgets.",
+    "itemTypes": [
+      "learnosity",
+      "integration"
+    ],
+    "showcaseTaskId": null
   },
   {
-    "id": "L0169",
-    "name": "Concept Web",
-    "blurb": "Radial concept-web diagrams and assessments.",
-    "examplePrompt": "Make a concept web assessment with draggable concepts and relations about the water cycle",
-    "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIjF4YTR6OW15aGNVRTIwOTZxdmd1Il19",
-    "embedScale": 0.75,
-    "embedRatio": "1 / 1"
+    "id": "L0178",
+    "name": "Learnosity data integrations",
+    "blurb": "Host-neutral recipes for supported Learnosity Item Bank and assessment data jobs.",
+    "examplePrompt": "Plan a server-to-server job to read every item from a Learnosity Item Bank, including the paging rules and verification steps.",
+    "itemTypes": [
+      "learnosity",
+      "integration"
+    ],
+    "showcaseTaskId": null
   },
   {
-    "id": "L0170",
-    "name": "Data Pipeline",
-    "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
-    "examplePrompt": "Fetch population data from https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-population.json and filter the top 10 largest populations",
-    "itemTypes": ["data_pipeline"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInVYbWVUemNpeFkwT2dyNnJOMllSIl19",
-    "embedScale": 1,
-    "embedRatio": "2 / 3"
+    "id": "L0179",
+    "name": "Spreadsheet calculators",
+    "blurb": "Create interactive calculators with spreadsheet formulas, ready to embed on your website.",
+    "examplePrompt": "Make a monthly budget calculator for my website using a spreadsheet. Start with monthly income of $4,000, rent of $1,500, food of $400, and transport of $200. Let visitors change these amounts. Automatically calculate total expenses and the remaining balance.",
+    "itemTypes": [
+      "spreadsheet"
+    ],
+    "showcaseTaskId": null
   },
   {
-    "id": "L0173",
-    "name": "Chart",
-    "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
-    "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
-    "itemTypes": ["chart"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIkVCdFVTMkJjaTZ5ejJJM1g5UWtUIl19",
-    "embedScale": 0.75,
-    "embedRatio": "3 / 2"
+    "id": "L0180",
+    "name": "Quizzes & assessments",
+    "blurb": "Create a question learners can answer and score in the browser.",
+    "examplePrompt": "Make a multiple-choice question: Which process turns liquid water into water vapor? Options: evaporation, condensation, precipitation. Score evaporation as correct and explain each answer.",
+    "itemTypes": [
+      "assessment"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0181",
+    "name": "Flashcards",
+    "blurb": "Make a study deck with cards to flip and review.",
+    "examplePrompt": "Make a flashcard deck with these terms on the front and definitions on the back: evaporation — liquid turns to vapor; condensation — vapor turns to liquid; precipitation — water falls from clouds.",
+    "itemTypes": [
+      "flashcards"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0182",
+    "name": "Survey responses",
+    "blurb": "Record ranked choices or ratings for an existing survey. New survey authoring is not supported.",
+    "examplePrompt": "Show the existing team-retro survey so I can record my priorities.",
+    "itemTypes": [
+      "survey_response"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0183",
+    "name": "Concept maps",
+    "blurb": "Show how ideas connect, or turn the map into a learning activity.",
+    "examplePrompt": "Make a concept map with the water cycle at the center, connected to evaporation, condensation, and precipitation. Label each connection with a short explanation.",
+    "itemTypes": [
+      "concept_web",
+      "assessment"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0184",
+    "name": "Interactive charts",
+    "blurb": "Turn your data into interactive charts that visitors can explore. Embed them on your website.",
+    "examplePrompt": "Make a bar chart of quarterly revenue: Q1 $120,000; Q2 $150,000; Q3 $170,000; Q4 $210,000. Title it Quarterly revenue and label the axes.",
+    "itemTypes": [
+      "chart"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0185",
+    "name": "Fetch & shape data",
+    "blurb": "Fetch public JSON or CSV and filter, group, join, or summarize it.",
+    "examplePrompt": "Group these sales by region and sum revenue: West 120, East 80, West 60, East 90. Sort by total revenue, largest first.",
+    "itemTypes": [
+      "data_pipeline"
+    ],
+    "showcaseTaskId": null
+  },
+  {
+    "id": "L0186",
+    "name": "FigJam boards",
+    "blurb": "Plan a brainstorm or retro, then draw it with the Graffiticode FigJam plugin.",
+    "examplePrompt": "Make a FigJam retrospective board with three sections: Went well, Could improve, and Next steps. Add three blank sticky notes under each section.",
+    "itemTypes": [
+      "figjam"
+    ],
+    "showcaseTaskId": null
   }
 ]

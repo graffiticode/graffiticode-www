@@ -2,14 +2,21 @@
 
 The single-page Graffiticode marketing site.
 
-> Keep APIs safe. Make agents smarter. Trace every request.
+> Keep your API keys safe. Make your agents smarter. See every step.
 
-The page contains this headline, one paragraph explaining Graffiticode's role
-between customer agents and APIs, and a static animation-placeholder storyboard:
-Agent → Graffiticode → API. The Graffiticode boundary contains the three
-functions: Micro-agent code generation, Capability based security, and Visible result.
-There is no header, navigation, CTA, demo, or footer. The storyboard runs horizontally
-on desktop and vertically on small screens, where the page may scroll.
+The page speaks to people using agents with their own SaaS accounts. An
+illustrative storyboard shows Your agent → Graffiticode → Your SaaS accounts.
+**Start making** jumps to the example prompts, and **Connect your agent** jumps
+to setup instructions. Three starting prompts cover
+Learnosity assessments, spreadsheets, and charts, with **Try in ChatGPT.com** and
+**Copy prompt** actions.
+Prompts explicitly request Graffiticode; visitors need to connect it in ChatGPT.
+ChatGPT links include the selected prompt. The connection
+section includes a copyable endpoint, optional JSON configuration, the
+create → render → refine workflow, discovery links, and free-session retention.
+The layout adapts to small screens; both themes use shared color tokens.
+Page copy speaks to people connecting their own accounts to the assistants they
+use. Technical tool-call instructions are labeled for their AI assistant.
 
 Dark mode is the default. Press **Shift+D** to switch between dark and light;
 there is no visible toggle. The browser remembers the selected theme. For mobile
@@ -32,15 +39,18 @@ CI builds and performs this check on each PR and push to main.
 
 ## Content and routing
 
-- `data/contract.ts` owns the headline, subtext, storyboard copy, MCP endpoint, tools, and
-  free-plan facts. `data/languages.json` retains the local catalog snapshot.
+- `data/contract.ts` owns the headline, subtext, storyboard copy, creation paths,
+  MCP setup and workflow, endpoint, tools, and free-plan facts.
+  `data/languages.json` holds the current curated catalog snapshot and example prompts.
 - `src/components/AnimationPreview.tsx` isolates the static storyboard so a future
   animation can replace it within the same hero. It is illustrative, not live evidence.
 - `src/lib/theme.ts` initializes the saved theme before paint;
   `src/components/ThemeToggle.tsx` handles the hidden keyboard shortcut.
 - `scripts/generate-discovery.ts` generates `public/llms.txt` and
   `public/.well-known/mcp.json` offline on dev/build. Never hand-edit those files.
-  Discovery uses MCP tools for current capability details, without retired page URLs.
+  Discovery includes setup and creation instructions and uses MCP tools for current
+  capability details, without retired page URLs.
+- CTA clicks and prompt/config copies use the optional Plausible event helper.
 - `/agents`, `/languages`, `/languages/*`, and `/pricing` permanently redirect to `/`.
   The sitemap lists only the homepage. Alternate hosts still redirect to graffiticode.org.
 - `SITE_URL` controls absolute metadata and discovery URLs, defaulting to

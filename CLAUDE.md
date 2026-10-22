@@ -3,30 +3,43 @@
 ## Purpose and boundaries
 
 This is the canonical Graffiticode marketing site at graffiticode.org. It is a
-single page, aimed at API and product owners, with exactly one hero message:
+single page for people and their agents, with a consumer-facing hero message:
 
-> Keep APIs safe. Make agents smarter. Trace every request.
+> Keep your API keys safe. Make your agents smarter. See every step.
 
-The hero contains that headline, one paragraph of supporting subtext, and an
-illustrative static animation placeholder.
-Do not add navigation, a logo, supporting sections, CTAs, embeds, or a footer
-without a new user request. Do not restore the former artifact-first tool catalog.
+The hero contains that headline, supporting subtext, a concrete creation summary,
+two CTAs, and an illustrative static animation placeholder. **Start making** jumps
+to the example prompts; **Connect your agent** links to the on-page setup instructions.
+**Open Graffiticode**, below the examples, opens the console tools.
+The user requested these entry points and clear examples of what to make and how.
+Keep the three starting prompts and MCP setup focused on helping visitors create.
+Each prompt offers **Try in ChatGPT.com** and **Copy prompt** actions. ChatGPT
+links carry the prompt. Make clear that ChatGPT needs Graffiticode connected.
+Address people connecting their own SaaS accounts to the agents they use.
+Describe what they can make, which permissions are checked, and how to save
+their work. Avoid API-provider sales language and implementation jargon in the
+main page copy. Keep necessary connection terms in setup instructions, and
+clearly label tool-call instructions for the reader’s AI assistant.
+Do not add navigation, a logo, embeds, or a footer without a new user request.
 The older `artcompiler/artcompiler-graffiticode` repository is not this site's source.
 
 ## Architecture
 
 - Next.js 15 App Router, React 19, TypeScript, Tailwind v4.
-- `src/app/page.tsx` renders the single hero. `src/app/layout.tsx` provides metadata,
+- `src/app/page.tsx` renders the hero, starting prompts, and MCP connection guide.
+  `src/app/layout.tsx` provides metadata,
   the main landmark, and optional Plausible pageview analytics.
 - `src/components/AnimationPreview.tsx` is a server-rendered HTML/CSS storyboard.
-  It depicts Agent → Graffiticode → API, without a visible preview label.
-  Graffiticode encloses specialized code generation, capability based security, and visible results.
+  It depicts Your agent → Graffiticode → Your SaaS accounts, without a visible preview label.
+  Graffiticode encloses specialized tools, permission checks, and visible results.
   Keep semantic reading order
   and static presentation until a real animation is requested.
-- `data/contract.ts` owns headline, subtext, storyboard, technical definition, and endpoint
-  facts. Metadata and discovery prose use that contract. Legacy pricing data is
+- `data/contract.ts` owns headline, subtext, storyboard, technical definition,
+  creation paths, MCP setup/workflow, and endpoint facts. Metadata and discovery
+  prose use that contract. Legacy pricing data is
   retained but has no public page; this redesign does not change billing.
-- `data/languages.json` is a local catalog snapshot, not a live availability promise.
+- `data/languages.json` is a curated local catalog snapshot, not a live availability
+  promise. Keep example prompts in this file and use current IDs from list_languages.
 - `scripts/generate-discovery.ts` generates `public/llms.txt` and
   `public/.well-known/mcp.json`. Never hand-edit those committed outputs. Generation
   must stay offline because it runs in prebuild. Language sync remains on demand.
