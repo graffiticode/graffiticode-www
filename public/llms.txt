@@ -1,6 +1,6 @@
 # Graffiticode
 
-Keep your API keys safe. Make your agents smarter. See every step.
+Keep your API keys safe. Make your agents smarter. See every move they make.
 
 Graffiticode sits between your SaaS accounts and the agents you use. It gives
 your agents specialized tools, checks permissions before they act, and shows

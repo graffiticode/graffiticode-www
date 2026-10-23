@@ -86,7 +86,7 @@ export const GITHUB_URL = 'https://github.com/graffiticode'
 export const POSITIONING = {
   headline: 'Keep your API keys safe.',
   continuation: 'Make your agents smarter.',
-  closing: 'See every step.',
+  closing: 'See every move they make.',
   subtext:
     'Graffiticode sits between your SaaS accounts and the agents you use. It gives your agents specialized tools, checks permissions before they act, and shows you each step from request to result.',
   definition:
@@ -94,7 +94,7 @@ export const POSITIONING = {
   mechanism:
     'Your agent asks Graffiticode to handle a task using a specialized tool. Each tool is limited to actions defined by its language, and a compiler checks the generated code before the result is returned to your agent.',
   short:
-    'Keep your API keys safe. Make your agents smarter. See every step.',
+    'Keep your API keys safe. Make your agents smarter. See every move they make.',
 } satisfies Positioning
 
 /** Illustrative storyboard copy, not a recording of a live execution. */

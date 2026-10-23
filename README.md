@@ -2,7 +2,7 @@
 
 The single-page Graffiticode marketing site.
 
-> Keep your API keys safe. Make your agents smarter. See every step.
+> Keep your API keys safe. Make your agents smarter. See every move they make.
 
 The page speaks to people using agents with their own SaaS accounts. An
 illustrative storyboard shows Your agent → Graffiticode → Your SaaS accounts.

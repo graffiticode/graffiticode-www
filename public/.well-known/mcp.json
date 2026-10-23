@@ -7,7 +7,7 @@
     }
   },
   "site": "https://graffiticode.org",
-  "description": "Keep your API keys safe. Make your agents smarter. See every step. Graffiticode sits between your SaaS accounts and the agents you use. It gives your agents specialized tools, checks permissions before they act, and shows you each step from request to result. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
+  "description": "Keep your API keys safe. Make your agents smarter. See every move they make. Graffiticode sits between your SaaS accounts and the agents you use. It gives your agents specialized tools, checks permissions before they act, and shows you each step from request to result. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
   "tools": [
     "list_languages",
     "get_language_info",

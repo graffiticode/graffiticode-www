@@ -5,7 +5,7 @@
 This is the canonical Graffiticode marketing site at graffiticode.org. It is a
 single page for people and their agents, with a consumer-facing hero message:
 
-> Keep your API keys safe. Make your agents smarter. See every step.
+> Keep your API keys safe. Make your agents smarter. See every move they make.
 
 The hero contains that headline, supporting subtext, a concrete creation summary,
 two CTAs, and an illustrative static animation placeholder. **Start making** jumps
